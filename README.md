@@ -111,5 +111,5 @@ Files Included within the Repository Include:
 9. securities_demo_tree.csv - Example security file to showcase red-black tree size
 10. securities_demo.csv - Example security file representing a realistic security csv file
 11. Security Test Example - Example of procedures taken for testing purposes to ensure the red-black tree and csutomer balances were appropriate after updates
-12. Demo Document - An extra Demo Resource to show how the program functions
+12. Porgram Demo - An extra Demo Resource to show how the program functions with a simple example
 13. Project Proposal - Original Project Proposal submitted to the class
