@@ -100,13 +100,13 @@ i.	Type in the name of the customer balance file to be used
 
 
 Files Included within the Repository Include:
-1. main.cpp
-2. red_black_tree.h
-3. red_black_tree.cpp
-4. supporting_funcs_structs.h
-5. supporting_funcs_structs.cpp
-6. customer_balances_demo_large.csv
-7. customer_balances_demo_small.csv
-8. securities_demo_exact.csv
-9. securities_demo_tree.csv
-10. securities_demo.csv
+1. main.cpp - Contains code for main menu
+2. red_black_tree.h - header file for red-black tree class
+3. red_black_tree.cpp - function definitions for red-black tree class
+4. supporting_funcs_structs.h - Header file for all other program supporting functions
+5. supporting_funcs_structs.cpp - function definitions for all other program supporting functions
+6. customer_balances_demo_large.csv - An examplke of a realistic customer balance csv file
+7. customer_balances_demo_small.csv - Smaller customer balance file for demonstration purposes
+8. securities_demo_exact.csv - Example security CSV file to showcase precision pleding (use with customer_balances_demo_small.csv)
+9. securities_demo_tree.csv - Example security file to showcase red-black tree size
+10. securities_demo.csv - Example security file representing a realistic security csv file
