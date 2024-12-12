@@ -86,10 +86,10 @@ Steps to Running the Program
 3.	Run the program, type:  ./main
 4.	Select 1 at the menu to import the customer file
 i.	Type in the name of the customer balance file to be used
-1.	Can use “customer_balances_demo.csv”
+1.	Can use “customer_balances_demo_small.csv”
 5.	Select 2 at the menu to import the security file
 i.	Type in the name of the customer balance file to be used
-1.	Can use “securities_demo.csv”
+1.	Can use “securities_demo_tree.csv”
 6.	Select 6 at the menu – this allows you to see that customer’s are currently under pledged and need additional collateral added.
 7.	Select 10 at the menu – this runs test to show that the red-black tree invariants are appropriate.
 8.	Select 3 at the menu to perform security updates.
