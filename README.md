@@ -24,38 +24,54 @@ High level Overview of Program steps/features:
 1.	Import Customer Balances 
     a.	A node is created for each customer with all relevant customer information
   	
-      i.	Each account of the customer is established as its own node is stored within a vector in the customer node.
+     		 i.	Each account of the customer is established as its own node is stored within a vector in the customer node.
   	
     b.	Customer nodes are stored in a map structure for quick lookup O(1) time complexity
-3.	Import Securities
-4.	
+2.	Import Securities
+    
     a.	A node is created for each security with all relevant security information
   	
     b.	Security are entered into the red-black tree structure.
   	
-      i.	Security nodes that already pledged to customers will not be entered into the tree, but will be added to the security vector within the customer node.
+     		 i.	Security nodes that already pledged to customers will not be entered into the tree, but will be added to the security vector within the customer node.
   	
-      ii.	If the security is already pledged, but the customer is no longer in the map, the security gets added to the ‘pledge_removals’ vector and then get’s added to the red-black tree so that it can be made available to other customers.
+      		ii.	If the security is already pledged, but the customer is no longer in the map, the security gets added to the ‘pledge_removals’ vector and then get’s added to the red-black tree so that it can be made available to other customers.
   	
-6.	An initial test is performed to determine if there are customers with pledged amounts causing an overage (securities pledge less account balances) more than 50% of the aggregate account balances. This is the threshold we aim to hit, if possible. For each of these customers, all securities are unpledged and added back to the tree and added to the ‘pledge_removals’ vector. By removing these securities from the customer, an opportunity is available to try to repledge securities to the customer at a smaller threshold resulting from other securities made available from other security releases or new securities purchased.
+3.	An initial test is performed to determine if there are customers with pledged amounts causing an overage (securities pledge less account balances) more than 50% of the aggregate account balances. This is the threshold we aim to hit, if possible. For each of these customers, all securities are unpledged and added back to the tree and added to the ‘pledge_removals’ vector. By removing these securities from the customer, an opportunity is available to try to repledge securities to the customer at a smaller threshold resulting from other securities made available from other security releases or new securities purchased.
 
-7.	There are two pledging update algorithms implemented – the first algorithm ‘update_customers’, looks only at customers that have over_under pledge excess with a negative balance (the aggregate account balance is not adequately covered) – these need additional securities pledged. Within this function and its helper function (increase_decrease_search), two search tests are performed: 
-a. 1. Search for the needed balance with a 50% threshold added to it representing a min and max value – the small method. 
+4.	There are two pledging update algorithms implemented – the first algorithm ‘update_customers’, looks only at customers that have over_under pledge excess with a negative balance (the aggregate account balance is not adequately covered) – these need additional securities pledged. Within this function and its helper function (increase_decrease_search), two search tests are performed: 
+	a. 1. Search for the needed balance with a 50% threshold added to it representing a min and max value – the small method.
+
       i.	If a security is found in this range, the security is removed from the red-black tree and the security is added to a temporary vector holding all additions made using this first method
+  	
       ii.	If a security in this range cannot be found within the red-black tree, it will then search smaller securities in the tree, update the over_under balance and keep iterating based on the new amount needed.
-      iii.	If the balance is covered after this process, true is returned 
+  	
+      iii.	If the balance is covered after this process, true is returned
+  	
     b.	2. The second search method (large method) looks at the balance needed (over_under), which is set to the min value and max is set to the max value of a double. This will allow the algorithm to find the first security in the red-black tree that will cover the needed balance.
+  	
       i.	If a security is found, true will be return, false otherwise
+  	
     c.	After these two methods return, if both result in true, indicating that it found securities to cover the balance, the aggregate market value total of the securities identified is compared and the method that returned in less security value is ultimately used to pledge to the customer and the others are restored to the red-black-tree.
-    d.	If, at any point in the update_pledges algorithm, the small and large methods both return false – this indicates that the update process has failed and there are not enough securities in the tree to cover the balances. 
+  	
+    d.	If, at any point in the update_pledges algorithm, the small and large methods both return false – this indicates that the update process has failed and there are not enough securities in the tree to cover the balances.
+  	
       i.	If this is the case, the program automatically moves on to the second of the pledging update algorithms explained below.
-8.	The second of the pledge algorithms ‘clear_all_and_repledge’ will attempt a redistribution of all securities. First, all customer’s have their securities unpledged, added to ‘pledge_removals’  and they are added back to the red-black tree. At this point, the first algorithm is use then used to try to sufficiently pledge each customer.       Within ‘clear_all_and_repledge’, an initial threshold of 50% is used, but each time ‘update_pledges’ fails, it will decrement the threshold by 1% and recall the ‘update_pledges’ function. It will keep iterating until the threshold has been reduced down to 0%, indicating it’s searching for values at exactly the needed over_under value. It is possible that a customer balance grabbed a security value that was over in excess, where it could have satisfied a different customer’s balance. 
-9.	If both of these pledge algorithms fail, it prints out that there are insufficient securities available for pledging.
-10.	Once customer balances are covered, the user can export the pledge changes to a csv file formatted for uploaded to the safekeeper of our securities. Additionally, the user can export to csv the status of customer balances for review.
-11.	Additional elements added to the program allows the user to review the status of customers and pledge changes within the program. I’ve also implanted test functions to ensure the appropriateness of the red-black tree. These tests check the invariants of the red-black tree.
+  	
+5.	The second of the pledge algorithms ‘clear_all_and_repledge’ will attempt a redistribution of all securities. First, all customer’s have their securities unpledged, added to ‘pledge_removals’  and they are added back to the red-black tree. At this point, the first algorithm is use then used to try to sufficiently pledge each customer.   Within ‘clear_all_and_repledge’, an initial threshold of 50% is used, but each time ‘update_pledges’ fails, it will decrement the threshold by 1% and recall the ‘update_pledges’ function. It will keep iterating until the threshold has been reduced down to 0%, indicating it’s searching for values at exactly the needed over_under value. It is possible that a customer balance grabbed a security value that was over in excess, where it could have satisfied a different customer’s balance.
+    
+6.	If both of these pledge algorithms fail, it prints out that there are insufficient securities available for pledging.
+    
+7.	Once customer balances are covered, the user can export the pledge changes to a csv file formatted for uploaded to the safekeeper of our securities. Additionally, the user can export to csv the status of customer balances for review.
+    
+8.	Additional elements added to the program allows the user to review the status of customers and pledge changes within the program. I’ve also implanted test functions to ensure the appropriateness of the red-black tree. These tests check the invariants of the red-black tree.
+    
     a.	Root cannot be a red node.
+   	
     b.	No red node can have a red child.
+   	
     c.	Numeric ordering is correct, smaller market values to the left, larger and equal to the right.
+   	
     d.	The height of the tree is within the acceptable range (min log¬2N max 2log2N), where N is the number of nodes in the tree.
 
 
