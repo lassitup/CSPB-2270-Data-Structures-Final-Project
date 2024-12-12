@@ -24,7 +24,7 @@ High level Overview of Program steps/features:
 1.	Import Customer Balances 
     a.	A node is created for each customer with all relevant customer information
   	
-     		 i.	Each account of the customer is established as its own node is stored within a vector in the customer node.
+   	 i.	Each account of the customer is established as its own node is stored within a vector in the customer node.
   	
     b.	Customer nodes are stored in a map structure for quick lookup O(1) time complexity
 2.	Import Securities
@@ -33,9 +33,9 @@ High level Overview of Program steps/features:
   	
     b.	Security are entered into the red-black tree structure.
   	
-     		 i.	Security nodes that already pledged to customers will not be entered into the tree, but will be added to the security vector within the customer node.
+   	i.	Security nodes that already pledged to customers will not be entered into the tree, but will be added to the security vector within the customer node.
   	
-      		ii.	If the security is already pledged, but the customer is no longer in the map, the security gets added to the ‘pledge_removals’ vector and then get’s added to the red-black tree so that it can be made available to other customers.
+   	ii.	If the security is already pledged, but the customer is no longer in the map, the security gets added to the ‘pledge_removals’ vector and then get’s added to the red-black tree so that it can be made available to other customers.
   	
 3.	An initial test is performed to determine if there are customers with pledged amounts causing an overage (securities pledge less account balances) more than 50% of the aggregate account balances. This is the threshold we aim to hit, if possible. For each of these customers, all securities are unpledged and added back to the tree and added to the ‘pledge_removals’ vector. By removing these securities from the customer, an opportunity is available to try to repledge securities to the customer at a smaller threshold resulting from other securities made available from other security releases or new securities purchased.
 
