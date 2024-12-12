@@ -3,15 +3,20 @@ Presented by Justin Lassiter
 Project: Security Pledging Application
 
 Purpose
+
 This repository contains my final project for CSPB 2270 Data Structure at the University of Colorado Boulder. 
 
-Data Structure Used: Red-Black Tree – A self-balancing binary search tree used for the organization, storage and retrieval/search of financial security data. The securities are organized within the tree based on its market value. This allows for quick search, O(logn) time complexity, of a security that satisfies the capital amount required to cover a 
+Data Structure Used: 
+
+Red-Black Tree – A self-balancing binary search tree used for the organization, storage and retrieval/search of financial security data. The securities are organized within the tree based on its market value. This allows for quick search, O(logn) time complexity, of a security that satisfies the capital amount required to cover a 
 customer’s aggregate deposit balance.
 
 Project Inspiration
+
 With this project, my aim was to solve an issue I encounter daily in my job as a financial analyst at a regional bank. One of my daily duties is ensuring that certain customers have their account balances collateralized with financial securities owned by the bank. Currently, this process is very manual in nature. I must pull in customer balances and security values, perform comparisons between the customer’s current aggregate balances (customers can have many accounts), determine which customers need additional collateral, as well as customer’s that have a large excess of securities pledged to it. Regulators require that we do not have too much excess asset value assigned to a customer, if possible. As customer balances and security values change daily, it is very unpredictable and there are days where only 1 change is needed and days where 100+ changes are needed. As one could imagine, this is very tedious, time consuming process and is also prone to human error. 
 
 Project Overview
+
 With this project, I have set out to automate this process completely. The program I’ve written requires that the user load the same customer and security files that I receive daily into the program where nodes are created for each element. The customer balances are added to a map data structure and the securities are added to a red-black tree. I’ve chosen to use a red-black tree to organize the securities. By building the red-black tree based on the security market value, the self-balancing always guarantees that the search time complexity is O(logN) after insertions and removals. This allows for very quick look up of an appropriate valued security within the tree as many iterations of search are performed in the pledging update algorithms. Ultimately, the program will ensure that all customer balances are covered, if possible, and will be able to export the pledging changes needed to a csv file, which can then be provided to the safekeeping of our securities.
 
 High level Overview of Program steps/features:
