@@ -19,6 +19,10 @@ Project Overview
 
 With this project, I have set out to automate this process completely. The program I’ve written requires that the user load the same customer and security files that I receive daily into the program where nodes are created for each element. The customer balances are added to a map data structure and the securities are added to a red-black tree. I’ve chosen to use a red-black tree to organize the securities. By building the red-black tree based on the security market value, the self-balancing always guarantees that the search time complexity is O(logN) after insertions and removals. This allows for very quick look up of an appropriate valued security within the tree as many iterations of search are performed in the pledging update algorithms. Ultimately, the program will ensure that all customer balances are covered, if possible, and will be able to export the pledging changes needed to a csv file, which can then be provided to the safekeeping of our securities.
 
+
+Link to Walkthrough / Demo Video: https://drive.google.com/drive/folders/1Wqkc7ZG1ZTLeHMOeXKX925wgTdQeCwCK?usp=sharing
+
+
 High level Overview of Program steps/features:
 
 1.	Import Customer Balances 
