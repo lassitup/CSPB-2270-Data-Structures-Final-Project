@@ -103,7 +103,7 @@ i.	Type in the name of the customer balance file to be used
 
 
 
-Files Included within the Repository Include:
+Files Included within the Repository:
 1. main.cpp - Contains code for main menu
 2. red_black_tree.h - header file for red-black tree class
 3. red_black_tree.cpp - function definitions for red-black tree class
