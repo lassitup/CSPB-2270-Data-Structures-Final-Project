@@ -96,3 +96,17 @@ i.	Type in the name of the customer balance file to be used
 13.	Select 6 at the menu – you can now see that the customers are still now sufficiently pledged – there could potentially be changes in the % covered now.
 14.	Select 8 to see the pledges made – there should be considerably more changes than in step 10 since we cleared all securities and had to pledge to all customers.
 15.	Select 7 to export customer balances and changes to csv files. These files should be generated in the same folder as where the main program is located.
+
+
+
+Files Included within the Repository Include:
+1. main.cpp
+2. red_black_tree.h
+3. red_black_tree.cpp
+4. supporting_funcs_structs.h
+5. supporting_funcs_structs.cpp
+6. customer_balances_demo_large.csv
+7. customer_balances_demo_small.csv
+8. securities_demo_exact.csv
+9. securities_demo_tree.csv
+10. securities_demo.csv
