@@ -200,27 +200,6 @@ void RBT::RBT_BST_Remove(RBT_Security_Node* node)
     {
         return;
     }
-    //bst_node* parent = NULL; //should need - nodes have parent embedded
-    /*
-    RBT_Security_Node* cursor = *root; //set to top of tree
-
-    while (cursor != nullptr && cursor != node)
-    //do I even need this? The nodes carry parent and children with them...
-    // could just change cursor to the node itself
-    {
-        ///This block brings us to the node within the tree
-        //parent = cursor;//same as above
-        //the rotations are causing issues here when moving securities of the same value left/right
-        //if causes other issues, could add additional check for child values/ 
-        if (node->market_value <= cursor->market_value)
-        {
-            cursor = cursor->left_child;
-        }
-        else
-        {
-            cursor = cursor->right_child;
-        }
-    }*/
 
     //no child case
     if (node->left_child == nullptr && node->right_child == nullptr)
@@ -228,14 +207,13 @@ void RBT::RBT_BST_Remove(RBT_Security_Node* node)
         if (node->parent != nullptr && node->parent->left_child == node)
         {
             node->parent->left_child = nullptr;
-            delete node;//this is where I need to add to the customer node instead of deleting
-            //when adding to the customer, before remove is called, we store at the customer, so we don't need
-            //to atually delete?
+            delete node;
+
         }
         else if (node->parent != nullptr && node->parent->right_child == node)
         {
             node->parent->right_child = nullptr;
-            delete node; //this is where I need to add to the customer node instead of deleting can probably consolidate these deletes into one statement below
+            delete node; 
         }
         else
         {
@@ -247,20 +225,13 @@ void RBT::RBT_BST_Remove(RBT_Security_Node* node)
     else if (node->left_child != nullptr && node->right_child != nullptr)
     {
         RBT_Security_Node* successorNode = node->right_child;
-        //bst_node* successorParent = cursor; //same as above for parent, don't need
 
         while (successorNode->left_child != nullptr)
         {
-            //successorParent = successorNode;
             successorNode = successorNode->left_child;
         }
-        //we're not deleting the cursor's node here, just replacing the value
-
-        //update value of cursor after return
         
         RBT_Security_Node* replacement = RBT_copy_node(successorNode); //temporarily store the replacement values until recursive function returns
-
-        //RBT_Security_Node* replacement = successorNode->data;
 
         RBT_BST_Remove(successorNode);
 
@@ -268,10 +239,8 @@ void RBT::RBT_BST_Remove(RBT_Security_Node* node)
 
         delete replacement;
 
-        //cursor->data = replacement;
 
     }
-    //This is essentially swapping the data and deleting the node
     else if (node->right_child != nullptr)
     {
         bool color_swap = true;
@@ -279,24 +248,20 @@ void RBT::RBT_BST_Remove(RBT_Security_Node* node)
         {
             color_swap = false;
         }
-        //cursor->data = cursor->right->data;
-        extract_node_data(node, node->right_child, color_swap); // test this to see if true is needed
-        delete node->right_child; //not deleting any nodes, being entered into customer nodes
-        //create new node / copy data and store into customer nodes due to how this algorithm work 
-        // or could use parent and attach the lower node to them
-        // or maybe we attach to customer account before remove is called
+        extract_node_data(node, node->right_child, color_swap); 
+        delete node->right_child; 
+
         node->right_child = nullptr;
     }
     else
     {
-        //cursor->data = cursor->left->data;
         bool color_swap = true;
         if(node->parent == nullptr)
         {
             color_swap = false;
         }
-        extract_node_data(node, node->left_child, color_swap); //do I need to bring over any children nodes as well?
-        delete node->left_child; //not deleting any nodes, being entered into customer nodes
+        extract_node_data(node, node->left_child, color_swap);
+        delete node->left_child; 
         node->left_child = nullptr;
     }
     return;
