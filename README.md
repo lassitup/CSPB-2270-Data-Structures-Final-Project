@@ -4,11 +4,11 @@ Project: Security Pledging Application
 
 Purpose
 
-This repository contains my final project for CSPB 2270 Data Structure at the University of Colorado Boulder. 
+This repository contains my final project for CSPB 2270 Data Structures at the University of Colorado Boulder. 
 
 Data Structure Used 
 
-Red-Black Tree – A self-balancing binary search tree used for the organization, storage and retrieval/search of financial security data. The securities are organized within the tree based on its market value. This allows for quick search, O(logn) time complexity, of a security that satisfies the capital amount required to cover a 
+Red-Black Tree – A self-balancing binary search tree used for the organization, storage and retrieval/search of financial security data. The securities are organized within the tree based on its market value. This allows for quick search, O(logN) time complexity, of a security that satisfies the capital amount required to cover a 
 customer’s aggregate deposit balance.
 
 Project Inspiration
